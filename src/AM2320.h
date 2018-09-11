@@ -8,6 +8,8 @@
 
 class AM2320
 {
+  private:
+    TwoWire* communication;
   public:
     AM2320(TwoWire* com_wire);
     float cTemp;
