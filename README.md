@@ -1,4 +1,4 @@
-AM2320
+Arduino - AM2320
 =================
 Library for working with the temperature and humidity sensor AM2320.
 
