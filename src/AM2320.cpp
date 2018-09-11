@@ -23,8 +23,9 @@ uint8_t i;
 } 
 
 // ---=== Constructor ===---
-AM2320::AM2320()
+AM2320::AM2320(TwoWire* com_wire)
 {
+  communication = comwire;
 }
 
 // ---=== Start convertion ===--
@@ -32,14 +33,14 @@ int AM2320::startConvert()
 {
   State = 1;
   // Wake
-  Wire.beginTransmission(AM2320_address);
-  Wire.endTransmission();
+  communication->beginTransmission(AM2320_address);
+  communication->endTransmission();
   // Send request for read 4 bytes
-  Wire.beginTransmission(AM2320_address);
-  Wire.write(0x03);// запрос
-  Wire.write(0x00); // с 0-го адреса
-  Wire.write(0x04); // 4 байта
-  if (Wire.endTransmission(1) == 0) State = 0;
+  communication->beginTransmission(AM2320_address);
+  communication->write(0x03); // request
+  communication->write(0x00); // from 0 address
+  communication->write(0x04); // 4 bytes for read
+  State = communication->endTransmission(1);
   return State;	
 }
 
@@ -54,9 +55,9 @@ unsigned int crc_temp;
     buf[i] = 0x00; 
   State = 2;
   // Read data (8 byte = (2 Header)+(2 Hum)+(2 Temp)+(2 CRC16))
-  Wire.requestFrom(AM2320_address, 8); 
+  communication->requestFrom(AM2320_address, 8); 
   for (i = 0; i < 8; i++) 
-    buf[i] = Wire.read();
+    buf[i] = communication->read();
 
   // Check CRC16
   crc_temp = buf[7] << 8;
