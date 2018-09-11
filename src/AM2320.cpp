@@ -1,33 +1,33 @@
 #include "AM2320.h"
 #include <Wire.h>
 
-// Calc CRC16
-unsigned int CRC16(byte *ptr, byte length) 
+// ---=== Calc CRC16 ===---
+uint16_t CRC16(uint8_t *ptr, uint8_t length) 
 { 
-unsigned int crc = 0xFFFF; 
+uint16_t crc = 0xFFFF; 
 uint8_t i; 
 //------------------------------
   while(length--) 
   {
     crc ^= *ptr++; 
     for (i = 0; i < 8; i++) 
-	{
-      if ( (crc & 0x01) != 0 )
-	  {
+      if ((crc & 0x01) != 0)
+      {
         crc >>= 1; 
         crc ^= 0xA001; 
-      } 
-	  else crc >>= 1; 
-    } 
+      }
+      else 
+        crc >>= 1; 
   } 
   return crc; 
 } 
 
-// Constructor
+// ---=== Constructor ===---
 AM2320::AM2320()
 {
 }
 
+// ---=== Start convertion ===--
 int AM2320::startConvert()
 {
   State = 1;
