@@ -8,21 +8,21 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("Chip = AM2320");
+  Serial.println(F("Chip = AM2320"));
   switch(th.Read()) {
     case 2:
-      Serial.println("  CRC failed");
+      Serial.println(F("  CRC failed"));
       break;
     case 1:
-      Serial.println("  Sensor offline");
+      Serial.println(F("  Sensor offline"));
       break;
     case 0:
-      Serial.print("  Humidity = ");
+      Serial.print(F("  Humidity = "));
       Serial.print(th.Humidity);
-      Serial.println("%");
-      Serial.print("  Temperature = ");
+      Serial.println(F("%"));
+      Serial.print(F("  Temperature = "));
       Serial.print(th.cTemp);
-      Serial.println("*C");
+      Serial.println(F("*C"));
       Serial.println();
       break;
   }
