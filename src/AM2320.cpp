@@ -1,5 +1,4 @@
 #include "AM2320.h"
-#include <Wire.h>
 
 // ---=== Calc CRC16 ===---
 uint16_t CRC16(uint8_t *ptr, uint8_t length) 
