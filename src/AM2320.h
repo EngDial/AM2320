@@ -2,19 +2,20 @@
 #define AM2320_H
 
 #include <Arduino.h>
+#include <Wire.h>
 
 #define AM2320_address (0xB8 >> 1) 
 
 class AM2320
 {
   public:
-    AM2320();
+    AM2320(TwoWire* com_wire);
     float cTemp;
     float Humidity;
-    int State;
-    int Read(void);
-    int startConvert(void);
-    int getData(void);
+    uint8_t State;
+    uint8_t Read(void);
+    uint8_t startConvert(void);
+    uint8_t getData(void);
 };
 
 #endif
